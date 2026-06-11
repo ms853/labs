@@ -4,20 +4,25 @@
   "description": "REST API for Eagle Bank which allows users to manage their accounts",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "test:ts": "tsc --noEmit"
   },
   "author": "Mike S",
   "license": "ISC",
   "devDependencies": {
     "@types/express": "^5.0.6",
+    "@types/jsonwebtoken": "^9.0.10",
     "@types/node": "^25.9.1",
     "express": "^5.2.1",
     "openapi-typescript": "^7.13.0",
     "ts-node": "^10.9.2",
-    "typescript": "^6.0.3"
+    "typescript": "^5.9.3"
   },
   "dependencies": {
     "@types/express-validator": "^3.0.2",
-    "express-validator": "^7.3.2"
+    "express-validator": "^7.3.2",
+    "jsonwebtoken": "^9.0.3",
+    "openapi-fetch": "^0.17.0",
+    "zod": "^4.4.3"
   }
 }

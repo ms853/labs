@@ -10,7 +10,8 @@
 		"forceConsistentCasingInFileNames": true,
 		"skipLibCheck": true,
 		"resolveJsonModule": true,
-        "noUncheckedIndexedAccess": true
+        "noUncheckedIndexedAccess": true,
+		"typeRoots": ["./src/types"]
 	},
 	"include": ["src"],
 	"exclude": ["node_modules", "dist"]

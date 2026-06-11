@@ -11,6 +11,9 @@ app.listen(port, () => {
   console.log(`Eagle Bank API server is running on port ${port}`);
 });
 
+app.use(express.json());
+
+
 // Senario: Create a new bank account
 app.post('/v1/accounts', (req, res) => {
   // Handle account creation logic here
