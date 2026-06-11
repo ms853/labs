@@ -11,7 +11,7 @@
 		"skipLibCheck": true,
 		"resolveJsonModule": true,
         "noUncheckedIndexedAccess": true,
-		"typeRoots": ["./src/types"]
+		"typeRoots": ["src/api-types"]
 	},
 	"include": ["src"],
 	"exclude": ["node_modules", "dist"]
