@@ -1,19 +1,21 @@
 
-enum AccountType {
+export enum AccountType {
     PERSONAL = "personal",
     BUSINESS = "business"
 }
 
-enum CurrencyType {
+export enum CurrencyType {
     GBP = "GBP"
 }
 
-enum SortCode {
-    "10-10-10" = "10-10-10"
+export enum SortCode {
+    CODE_1 = "10-10-10",
+    CODE_2 = "20-20-20",
+    CODE_3 = "30-30-30",
+    CODE_4 = "40-40-40",
 }
 
 export interface Account {
-    userId?: string;
     accountNumber: string;
     name: string;
     accountType: AccountType;

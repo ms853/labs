@@ -1,16 +1,21 @@
+import { CreatedUserResponse, FindUserResponse } from "../api-types/users";
 import { User } from "../models/user.model";
 
 export class UserRepository {
     private userStore: User[] = [];
     
-    createUser(newUser: User): User {
-        const userWithId = { ...newUser, id: `usr-${this.userStore.length + 1}` };
+    createUser(newUser: User): CreatedUserResponse {
+        const userWithId = { 
+            ...newUser, id: `usr-${this.userStore.length + 1}`, 
+            createdTimestamp: new Date().toISOString(), 
+            updatedTimestamp: new Date().toISOString() 
+        };
         this.userStore.push(userWithId);
-        return userWithId;
+        return userWithId as CreatedUserResponse;
     }
 
-    findUserByUserId(userId: string): User | undefined {
-        return this.userStore.find(user => user.id === userId);
+    findUserByUserId(userId: string): FindUserResponse | undefined {
+        return this.userStore.find(user => user.id === userId) as FindUserResponse | undefined;
     }
 
     updateUser(userId: string, updatedFields: Partial<Omit<User, "id">>): User | undefined {
