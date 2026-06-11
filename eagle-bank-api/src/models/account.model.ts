@@ -16,6 +16,7 @@ export enum SortCode {
 }
 
 export interface Account {
+    userId?: string;
     accountNumber: string;
     name: string;
     accountType: AccountType;

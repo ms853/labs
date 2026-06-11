@@ -1,15 +1,13 @@
 import { AccountRepository } from "../repositories/account.repository";
 import { Account } from "../models/account.model";
-import { TransactionRepository } from "../repositories/transaction.repository";
-import { CreateAccountRequest, BadRequestCreateAccountResponse } from "../api-types/accounts";
+import { CreateAccountRequest, BadRequestCreateAccountResponse, FetchAccountByAccountNumberResponse, FetchAccountByAccountNumberBadRequestResponse } from "../api-types/accounts";
+import { BadRequestError, NotFoundError } from "../errors/user.error";
 
 export class AccountService {
     private accountRepository: AccountRepository;
-    private transactionRepository: TransactionRepository;
 
     constructor() {
         this.accountRepository = new AccountRepository();
-        this.transactionRepository = new TransactionRepository();
     }
 
     async createAccount(newAccount: CreateAccountRequest): Promise<Account | BadRequestCreateAccountResponse> {
@@ -27,10 +25,23 @@ export class AccountService {
              
         return this.accountRepository.createAccount(newAccount);
     }
+
+    async listAccountsForUser(currentUserId: string): Promise<Account[]> {
+        if (!currentUserId) {
+            throw new BadRequestError("User ID is required to list accounts");
+        }
+        return this.accountRepository.listAccountsByUserId(currentUserId);
+    }
     
-    async fetchAccountByAccountNumber(accountNumber: string): Promise<Account | undefined> {
-        
-        return this.accountRepository.fetchBankAccountByAccountNumber(accountNumber);
+    async fetchAccountByAccountNumber(accountNumber: string, currentUserId: string): Promise<FetchAccountByAccountNumberResponse  | undefined> {
+        const account = this.accountRepository.fetchBankAccountByAccountNumber(accountNumber);
+        if (!account) {
+            throw new NotFoundError(`Account with number ${accountNumber} not found`);
+        }
+        if (account.userId !== currentUserId) {
+            throw new BadRequestError("Account does not belong to the specified user");
+        }
+        return account as FetchAccountByAccountNumberResponse;
     }   
 
 }

@@ -12,8 +12,8 @@ export class TransactionRepository {
         return this.transactionStore.find(transaction => transaction.id === transactionId);
     }
 
-    listTransactionsByAccountId(accountId: string): Transaction[] {
-        return this.transactionStore.filter(transaction => transaction.accountId === accountId);
+    listTransactionsByUserId(userId: string): Transaction[] {
+        return this.transactionStore.filter(transaction => transaction.userId === userId);
     }
 
     updateTransaction(transactionId: string, updatedFields: Partial<Omit<Transaction, "id">>): Transaction | undefined {

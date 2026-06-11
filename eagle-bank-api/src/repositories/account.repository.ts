@@ -1,7 +1,10 @@
 import { Account, CurrencyType, SortCode } from "../models/account.model";
-import { BadRequestCreateAccountResponse, CreateAccountRequest} from "../api-types/accounts";
+import { CreateAccountRequest } from "../api-types/accounts";
 
 export class AccountRepository {
+    update(account: Account) {
+        throw new Error('Method not implemented.');
+    }
     private accountStore: Account[] = [];  
     
     createAccount(newAccount: CreateAccountRequest): Account {
@@ -20,16 +23,13 @@ export class AccountRepository {
         return account;
     }
 
+    listAccountsByUserId(currentUserId: string): Account[] {
+        return this.accountStore.filter(account => account.userId === currentUserId);
+    }
+
     fetchBankAccountByAccountNumber(accountNumber: string): Account | undefined {
         return this.accountStore.find(account => account.accountNumber === accountNumber);
     }  
-
-    listAccountsByUserId(currentUserId: string): Account[] {
-        if (!currentUserId) {
-            return [];
-        }
-        return this.accountStore;
-    }
 
     updateAccount(accountNumber: string, updatedFields: Partial<Omit<Account, "accountNumber">>): Account | undefined {
         const accountIndex = this.accountStore.findIndex(account => account.accountNumber === accountNumber); 
